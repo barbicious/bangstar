@@ -137,7 +137,7 @@ public class Tokenizer(string source)
 
     private void AddToken(TokenType type, object? literal)
     {
-        string text = _source.Substring(_start, _current);
-        _tokens.Add(new Token(type, text, literal, _line));
+        string text = _source[_start..(_current - 1)];
+        _tokens.Add(new Token(type,text, literal, _line));
     }
 }

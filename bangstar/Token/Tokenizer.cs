@@ -91,6 +91,28 @@ public class Tokenizer(string source)
             case '\n':
                 _line++;
                 break;
+            case '"':
+                while (Peek() != '"' && _current < _source.Length)
+                {
+                    if (Peek() == '\n')
+                    {
+                        _line++;
+                    }
+                    
+                    Advance();
+                }
+
+                if (_current >= _source.Length)
+                {
+                    Program.Error(_line, "Unterminated string");
+                    return;
+                }
+                
+                Advance();
+
+                string value = _source[(_start + 1)..(_current - 1)];
+                AddToken(TokenType.String, value);
+                break;
             default:
                 Program.Error(_current, $"Unexpected token '{ch}'");
                 break;
@@ -137,7 +159,7 @@ public class Tokenizer(string source)
 
     private void AddToken(TokenType type, object? literal)
     {
-        string text = _source[_start..(_current - 1)];
-        _tokens.Add(new Token(type,text, literal, _line));
+        string text = _source[_start.._current];
+        _tokens.Add(new Token(type, text, literal, _line));
     }
 }

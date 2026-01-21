@@ -114,7 +114,30 @@ public class Tokenizer(string source)
                 AddToken(TokenType.String, value);
                 break;
             default:
-                Program.Error(_current, $"Unexpected token '{ch}'");
+                if (Char.IsDigit(ch))
+                {
+                    Console.WriteLine(ch);
+                    while (Char.IsDigit(Peek()))
+                    {
+                        Advance();
+                    }
+
+                    if (Peek() == '.' && Char.IsDigit(PeekNext()))
+                    {
+                        Advance();
+                        
+                        while (Char.IsDigit(Peek()))
+                        {
+                            Advance();
+                        }
+                    }
+                    
+                    AddToken(TokenType.Number, Convert.ToDouble(_source[_start.._current]));
+                }
+                else
+                {
+                    Program.Error(_current, $"Unexpected token '{ch}'");
+                }
                 break;
         }
         
@@ -150,6 +173,16 @@ public class Tokenizer(string source)
         }
         
         return _source[_current];
+    }
+
+    private char PeekNext()
+    {
+        if (_current + 1 >= _source.Length)
+        {
+            return '\0';
+        }
+        
+        return _source[_current + 1];
     }
 
     private void AddToken(TokenType type)

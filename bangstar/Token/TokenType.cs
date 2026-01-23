@@ -13,7 +13,7 @@ public enum TokenType
     Identifier, Number, String,
     
     And, Or, If, Null, True, False, This, While, For,
-    Method, Class, Else, Super, Return, Variable,
+    Method, Class, Else, Super, Return, Variable, Write,
     
     Eof,
 }

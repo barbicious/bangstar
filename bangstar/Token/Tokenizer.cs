@@ -12,6 +12,26 @@ public class Tokenizer(string source)
     private int _current = 0;
     private int _line = 1;
 
+    private readonly Dictionary<String, TokenType> _keywords = new Dictionary<string, TokenType>()
+    {
+        { "and", TokenType.And },
+        { "class", TokenType.Class },
+        { "else", TokenType.Else },
+        { "true", TokenType.True },
+        { "false", TokenType.False },
+        { "if", TokenType.If },
+        { "for", TokenType.For },
+        { "while", TokenType.While },
+        { "return", TokenType.Return },
+        { "write", TokenType.Write },
+        { "null", TokenType.Null },
+        { "variable", TokenType.Variable },
+        { "this", TokenType.This },
+        { "super", TokenType.Super },
+        { "or",  TokenType.Or },
+        { "method", TokenType.Method },
+    };
+
     public List<Token> ScanTokens()
     {
         while (_current < _source.Length)
@@ -133,6 +153,18 @@ public class Tokenizer(string source)
                     }
                     
                     AddToken(TokenType.Number, Convert.ToDouble(_source[_start.._current]));
+                }
+                else if (Char.IsLetter(ch))
+                {
+                    while (Char.IsLetterOrDigit(Peek()))
+                    {
+                        Advance();
+                    }
+                    
+                    string text = _source[_start.._current];
+                    TokenType tokenType = _keywords.GetValueOrDefault(text, TokenType.Identifier);
+                    
+                    AddToken(tokenType);
                 }
                 else
                 {

@@ -1,4 +1,4 @@
-﻿namespace bangstar.Token;
+﻿namespace bangstar.Tokens;
 
 public enum TokenType
 {

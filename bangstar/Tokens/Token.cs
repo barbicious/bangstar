@@ -1,4 +1,4 @@
-﻿namespace bangstar.Token;
+﻿namespace bangstar.Tokens;
 
 /**
  * Represents the smallest unit in the interpreter, a token. These can either simply represent a value, or

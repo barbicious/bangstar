@@ -1,4 +1,4 @@
-﻿namespace bangstar.Token;
+﻿namespace bangstar.Tokens;
 
 /**
  * Responsible for turning a source string into a list of program readable

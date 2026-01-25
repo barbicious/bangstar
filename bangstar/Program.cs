@@ -1,4 +1,4 @@
-﻿using bangstar.Token;
+﻿using bangstar.Tokens;
 
 namespace bangstar;
 

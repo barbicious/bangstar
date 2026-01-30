@@ -2,9 +2,9 @@
 
 namespace bangstar.Syntax;
 
-public class Binary : Expr
+public class Binary(Expr left, Token @operator, Expr right) : Expr
 {
-    private readonly Expr _left;
-    private readonly Token _operator;
-    private readonly Expr _right;
+    public Expr Left { get; set; } = left;
+    public Token Operator { get; set; } = @operator;
+    public Expr Right { get; set; } = right;
 }
